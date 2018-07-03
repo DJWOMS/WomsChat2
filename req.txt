@@ -17,6 +17,7 @@ itypes==1.1.0
 Jinja2==2.10
 MarkupSafe==1.0
 openapi-codec==1.3.2
+psycopg2==2.7.5
 PyJWT==1.6.4
 pytz==2018.5
 requests==2.19.1
