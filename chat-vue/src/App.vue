@@ -6,7 +6,14 @@
 
 <script>
     export default {
-        name: 'App'
+        name: 'App',
+        // created() {
+        //     if (localStorage.getItem("auth_token"))  {
+        //         $.ajaxSetup({
+        //             headers: {'Authorization': "Token " + localStorage.getItem('auth_token')},
+        //         });
+        //     }
+        // }
     }
 </script>
 
