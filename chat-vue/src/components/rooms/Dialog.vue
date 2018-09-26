@@ -4,7 +4,9 @@
             <mu-row v-for="dialog in dialogs"
                     direction="column"
                     justify-content="start"
-                    align-items="end">
+                    align-items="end"
+                    
+                    :key="dialog.id">
                 <p><strong>{{dialog.user.username}}</strong></p>
                 <p>{{dialog.text}}</p>
                 <span>{{dialog.date}}</span>
@@ -13,8 +15,9 @@
         <mu-container>
             <mu-row>
                 <mu-text-field v-model="form.textarea"
-                               multi-line :rows="4" f
-                               ull-width
+                               multi-line
+                               :rows="4"
+                               full-width
                                placeholder="Введите текст сообщения">
                 </mu-text-field>
                 <mu-button class="btn-send" round color="success">Отправить</mu-button>
@@ -24,8 +27,6 @@
 </template>
 
 <script>
-    import $ from 'jquery'
-
     export default {
         name: "Dialog",
         props: {

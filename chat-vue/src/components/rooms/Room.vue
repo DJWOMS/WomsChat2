@@ -8,8 +8,6 @@
 </template>
 
 <script>
-    import $ from 'jquery'
-
     export default {
         name: "Room",
         data() {
