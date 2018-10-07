@@ -1,5 +1,6 @@
 <template>
     <mu-col span="8" xl="9">
+        <AddUsers :room="id"></AddUsers>
         <mu-container class="dialog">
             <mu-row v-for="dialog in dialogs"
                     direction="column"
@@ -20,17 +21,22 @@
                                full-width
                                placeholder="Введите текст сообщения">
                 </mu-text-field>
-                <mu-button class="btn-send" round color="success">Отправить</mu-button>
+                <mu-button class="btn-send" round color="success" @click="sendMes">Отправить</mu-button>
             </mu-row>
         </mu-container>
     </mu-col>
 </template>
 
 <script>
+    import AddUsers from './AddUsers'
+
     export default {
         name: "Dialog",
         props: {
             id: '',
+        },
+        components: {
+            AddUsers
         },
         data() {
             return {
@@ -45,8 +51,12 @@
                 headers: {'Authorization': "Token " + sessionStorage.getItem('auth_token')},
             });
             this.loadDialog()
+            setInterval(() => {
+                this.loadDialog()
+            }, 5000)
         },
         methods: {
+            // Загрузка диалога
             loadDialog() {
                 $.ajax({
                     url: "http://127.0.0.1:8000/api/v1/chat/dialog/",
@@ -56,6 +66,23 @@
                     },
                     success: (response) => {
                         this.dialogs = response.data.data
+                    }
+                })
+            },
+            // Отправка сообщения
+            sendMes() {
+                $.ajax({
+                    url: "http://127.0.0.1:8000/api/v1/chat/dialog/",
+                    type: "POST",
+                    data: {
+                        room: this.id,
+                        text: this.form.textarea
+                    },
+                    success: (response) => {
+                        this.loadDialog()
+                    },
+                    error: (response) => {
+                        alert(response.statusText)
                     }
                 })
             }

@@ -1,15 +1,21 @@
+from django.db.models import Q
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 
+from django.contrib.auth.models import User
+
 from chat_room.models import Room, Chat
-from chat_room.serializers import (RoomSerializers, ChatSerializers, ChatPostSerializers)
+from chat_room.serializers import (RoomSerializers, ChatSerializers, ChatPostSerializers,  UserSerializer)
 
 
 class Rooms(APIView):
     """Комнаты чата"""
+    permission_classes = [permissions.IsAuthenticated, ]
+
     def get(self, request):
-        rooms = Room.objects.all()
+        rooms = Room.objects.filter(Q(creater=request.user) | Q(invited=request.user))
         serializer = RoomSerializers(rooms, many=True)
         return Response({"data": serializer.data})
 
@@ -30,6 +36,25 @@ class Dialog(APIView):
         dialog = ChatPostSerializers(data=request.data)
         if dialog.is_valid():
             dialog.save(user=request.user)
-            return Response({"status": "Add"})
+            return Response(status=201)
         else:
-            return Response({"status": "Error"})
+            return Response(status=400)
+
+
+class AddUsersRoom(APIView):
+    """Добавление юзеров в комнату чата"""
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        room = request.data.get("room")
+        user = request.data.get("user")
+        try:
+            room = Room.objects.get(id=room)
+            room.invited.add(user)
+            room.save()
+            return Response(status=201)
+        except:
+            return Response(status=400)

@@ -22,6 +22,7 @@
             this.loadRoom()
         },
         methods: {
+            // Загружаю список комнат
             loadRoom() {
                 $.ajax({
                     url: "http://127.0.0.1:8000/api/v1/chat/room/",
