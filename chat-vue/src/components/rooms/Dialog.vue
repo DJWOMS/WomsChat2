@@ -6,7 +6,6 @@
                     direction="column"
                     justify-content="start"
                     align-items="end"
-                    
                     :key="dialog.id">
                 <p><strong>{{dialog.user.username}}</strong></p>
                 <p>{{dialog.text}}</p>

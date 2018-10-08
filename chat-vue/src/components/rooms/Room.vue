@@ -1,5 +1,6 @@
 <template>
     <mu-col span="4" xl="2" class="rooms-list">
+        <mu-button @click="addRoom">Создать комнату</mu-button>
         <div v-for="room in rooms">
             <h3 @click="openDialog(room.id)">{{room.creater.username}}</h3>
             <small>{{room.date}}</small>
@@ -34,6 +35,19 @@
             },
             openDialog(id) {
                 this.$emit("openDialog", id)
+            },
+            // Создание комнаты
+            addRoom() {
+                $.ajax({
+                    url: "http://127.0.0.1:8000/api/v1/chat/room/",
+                    type: "POST",
+                    success: (response) => {
+                        this.loadRoom()
+                    },
+                    error: (response) => {
+                        alert(response.statusText)
+                    }
+                })
             }
         }
     }
