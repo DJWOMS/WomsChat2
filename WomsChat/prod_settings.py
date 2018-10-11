@@ -8,7 +8,7 @@ DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'chatbd',
+        'NAME': 'chandb',
         'USER': 'john',
         'PASSWORD': 'Afri^2d3H8fo8',
         'HOST': 'localhost',
