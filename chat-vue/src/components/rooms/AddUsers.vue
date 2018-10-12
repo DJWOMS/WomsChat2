@@ -29,7 +29,7 @@
             // Получаю список пользователей
             loadUsers() {
                 $.ajax({
-                    url: "http://127.0.0.1:8000/api/v1/chat/users/",
+                    url: "http://104.248.174.91/api/v1/chat/users/",
                     type: "GET",
                     success: (response) => {
                         this.list = response.data
@@ -40,7 +40,7 @@
             addUser() {
                 console.log(this.options)
                 $.ajax({
-                    url: "http://127.0.0.1:8000/api/v1/chat/users/",
+                    url: "http://104.248.174.91/api/v1/chat/users/",
                     type: "POST",
                     data: {
                         room: this.room,
