@@ -5,6 +5,11 @@ python => 3.6; django => 2; postgresql => 10; vue.js => 2
 
 pip install -r req.txt
 
+**Enter required secrets**
+
+- Create a copy of .env.template : `cp .env.template .env`
+- Enter key values in .env
+
 ## Build Setup
 
 ``` bash
