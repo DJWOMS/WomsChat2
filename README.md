@@ -14,7 +14,7 @@ pip install -r req.txt
 
 ``` bash
 # go to the project directory vue
-cd chat-cue
+cd chat-vue
 
 # install dependencies
 npm install
